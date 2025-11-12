@@ -1,0 +1,34 @@
+{% extends 'admApp/base.html' %}
+{% block content %}
+<h2>Obras</h2>
+<a href="{% url 'obra_create' %}" class="btn btn-primary mb-3">Nueva obra</a>
+
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th>ID</th><th>Dirección</th><th>Estado</th><th>Obrero asignado</th><th>Actividades</th><th>Acciones</th>
+  </tr>
+</thead>
+<tbody>
+  {% for o in obras %}
+    <tr>
+      <td>{{ o.id_obra }}</td>
+      <td>{{ o.direccion }}</td>
+      <td>{{ o.estado }}</td>
+      <td>
+        {% for relacion in o.obraobrero_set.all %}
+          {{ relacion.id_obrero.nombre_completo }}
+        {% empty %}
+          <em>Sin asignar</em>
+        {% endfor %}
+      </td>
+      <td><a href="{% url 'actividades_list' o.id_obra %}" class="btn btn-info btn-sm">Ver actividades</a></td>
+      <td>
+        <a href="{% url 'obra_update' o.id_obra %}" class="btn btn-warning btn-sm">Editar</a>
+        <a href="{% url 'obra_delete' o.id_obra %}" class="btn btn-danger btn-sm">Eliminar</a>
+      </td>
+    </tr>
+  {% endfor %}
+</tbody>
+</table>
+{% endblock %}

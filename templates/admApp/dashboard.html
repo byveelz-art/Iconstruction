@@ -1,0 +1,15 @@
+{% extends 'admApp/base.html' %}
+{% block content %}
+<h1 class="text-center">Panel Administrativo</h1>
+<p class="text-center">Selecciona una sección para gestionar:</p>
+
+<div class="d-flex justify-content-center mt-4">
+  <div class="btn-group">
+    <a href="{% url 'herramientas_list' %}" class="btn btn-primary">Herramientas</a>
+    <a href="{% url 'materiales_list' %}" class="btn btn-primary">Materiales</a>
+    <a href="{% url 'obras_list' %}" class="btn btn-primary">Obras</a>
+    <a href="{% url 'usuarios_list' %}" class="btn btn-primary">Usuarios</a>
+    <a href="{% url 'obreros_list' %}" class="btn btn-primary">Obreros</a>
+  </div>
+</div>
+{% endblock %}

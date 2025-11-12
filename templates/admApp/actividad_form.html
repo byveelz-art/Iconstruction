@@ -1,0 +1,9 @@
+{% extends 'admApp/base.html' %}
+{% block content %}
+<h2>Nueva actividad para obra {{ obras.direccion }}</h2>
+<form method="post">{% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit" class="btn btn-primary">Guardar</button>
+  <a href="{% url 'actividades_list' id_obra %}" class="btn btn-secondary">Volver</a>
+</form>
+{% endblock %}

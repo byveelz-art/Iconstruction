@@ -1,0 +1,27 @@
+{% extends 'admApp/base.html' %}
+{% block content %}
+<h2>Materiales</h2>
+<a href="{% url 'material_create' %}" class="btn btn-primary mb-3">Nuevo material</a>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Nombre</th><th>Tipo</th><th>Marca</th><th>Categoría</th><th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for m in materiales %}
+    <tr>
+      <td>{{ m.nombre }}</td>
+      <td>{{ m.tipo }}</td>
+      <td>{{ m.marca }}</td>
+      <td>{{ m.categoria }}</td>
+      <td>
+        <a href="{% url 'material_update' m.id_material %}" class="btn btn-warning btn-sm">Editar</a>
+        <a href="{% url 'material_delete' m.id_material %}" class="btn btn-danger btn-sm">Eliminar</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

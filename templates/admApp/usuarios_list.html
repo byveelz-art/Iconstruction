@@ -1,0 +1,27 @@
+{% extends 'admApp/base.html' %}
+{% block content %}
+<h2>Usuarios</h2>
+<a href="{% url 'usuario_create' %}" class="btn btn-primary mb-3">Nuevo usuario</a>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Nombre completo</th><th>Correo</th><th>Teléfono</th><th>Perfil</th><th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for u in usuarios %}
+    <tr>
+      <td>{{ u.nombre_completo }}</td>
+      <td>{{ u.correo_electronico }}</td>
+      <td>{{ u.telefono }}</td>
+      <td>{{ u.perfil }}</td>
+      <td>
+        <a href="{% url 'usuario_update' u.id_usuario %}" class="btn btn-warning btn-sm">Editar</a>
+        <a href="{% url 'usuario_delete' u.id_usuario %}" class="btn btn-danger btn-sm">Eliminar</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
