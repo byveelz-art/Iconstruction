@@ -1,24 +1,38 @@
 {% extends 'admApp/base.html' %}
-{% block content %}
-<h2>Actividades de la obra {{ dirrecion }}</h2>
-<a href="{% url 'actividad_create' id_obra %}" class="btn btn-primary mb-3">Nueva actividad</a>
 
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>Nombre</th><th>Tipo</th><th>Horas estimadas</th><th>Estado</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for a in actividades %}
-    <tr>
-      <td>{{ a.nombre }}</td>
-      <td>{{ a.tipo_actividad }}</td>
-      <td>{{ a.horas_estimadas }}</td>
-      <td>{{ a.estado }}</td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
-<a href="{% url 'obras_list' %}" class="btn btn-secondary">Volver a obras</a>
+{% block content %}
+<div class="container mt-4">
+    <h2>Actividades de {{ obra.nombre }}</h2>
+    <a href="{% url 'actividad_create' obra.pk %}" class="btn btn-primary mb-3">Nueva Actividad</a>
+    <a href="{% url 'obras_list' %}" class="btn btn-secondary mb-3">Volver a Obras</a>
+    
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Tipo</th>
+                <th>Estado</th>
+                <th>Horas Estimadas</th>
+                <th>Horas Reales</th>
+                <th>Fecha Inicio</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for actividad in actividades %}
+            <tr>
+                <td>{{ actividad.nombre }}</td>
+                <td>{{ actividad.tipo_actividad }}</td>
+                <td>{{ actividad.get_estado_display }}</td>
+                <td>{{ actividad.horas_estimadas }}</td>
+                <td>{{ actividad.horas_reales|default:"-" }}</td>
+                <td>{{ actividad.fecha_inicio|date:"d/m/Y"|default:"-" }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="6" class="text-center">No hay actividades</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 {% endblock %}

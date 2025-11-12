@@ -1,9 +1,65 @@
 {% extends 'admApp/base.html' %}
+
 {% block content %}
-<h2>{{ form.instance.id_usuario|yesno:"Editar usuario,Nuevo usuario" }}</h2>
-<form method="post">{% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit" class="btn btn-primary">Guardar</button>
-  <a href="{% url 'usuarios_list' %}" class="btn btn-secondary">Volver</a>
-</form>
+<div class="container mt-4">
+    <h2>{% if form.instance.pk %}Editar{% else %}Nuevo{% endif %} Usuario</h2>
+    
+    <form method="post">
+        {% csrf_token %}
+        
+        <div class="mb-3">
+            <label class="form-label">Usuario</label>
+            {{ form.username }}
+        </div>
+        
+        <div class="mb-3">
+            <label class="form-label">Contraseña</label>
+            {{ form.password }}
+            <small class="form-text text-muted">Dejar en blanco para mantener actual</small>
+        </div>
+        
+        <div class="mb-3">
+            <label class="form-label">Nombre</label>
+            {{ form.first_name }}
+        </div>
+        
+        <div class="mb-3">
+            <label class="form-label">Apellido</label>
+            {{ form.last_name }}
+        </div>
+        
+        <div class="mb-3">
+            <label class="form-label">Email</label>
+            {{ form.email }}
+        </div>
+        
+        <div class="mb-3">
+            <label class="form-label">RUT</label>
+            {{ form.rut }}
+        </div>
+        
+        <div class="mb-3">
+            <label class="form-label">Teléfono</label>
+            {{ form.telefono }}
+        </div>
+        
+        <div class="mb-3">
+            <label class="form-label">Rol</label>
+            {{ form.rol }}
+        </div>
+        
+        <div class="mb-3">
+            <label class="form-label">Fecha de Ingreso</label>
+            {{ form.fecha_ingreso }}
+        </div>
+        
+        <div class="mb-3">
+            <label class="form-label">Activo</label>
+            {{ form.activo }}
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        <a href="{% url 'usuarios_list' %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
 {% endblock %}

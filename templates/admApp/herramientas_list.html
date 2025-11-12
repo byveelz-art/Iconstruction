@@ -1,27 +1,40 @@
 {% extends 'admApp/base.html' %}
-{% block content %}
-<h2>Herramientas</h2>
-<a href="{% url 'herramienta_create' %}" class="btn btn-primary mb-3">Nueva herramienta</a>
 
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>Nombre</th><th>Marca</th><th>Tipo</th><th>Categoría</th><th>Acciones</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for h in herramientas %}
-    <tr>
-      <td>{{ h.nombre }}</td>
-      <td>{{ h.marca }}</td>
-      <td>{{ h.tipo }}</td>
-      <td>{{ h.categoria }}</td>
-      <td>
-        <a href="{% url 'herramienta_update' h.id_herramienta %}" class="btn btn-warning btn-sm">Editar</a>
-        <a href="{% url 'herramienta_delete' h.id_herramienta %}" class="btn btn-danger btn-sm">Eliminar</a>
-      </td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
+{% block content %}
+<div class="container mt-4">
+    <h2>Gestión de Herramientas</h2>
+    <a href="{% url 'herramienta_create' %}" class="btn btn-primary mb-3">Nueva Herramienta</a>
+    
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Marca</th>
+                <th>Modelo</th>
+                <th>Tipo</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for herramienta in herramientas %}
+            <tr>
+                <td>{{ herramienta.nombre }}</td>
+                <td>{{ herramienta.marca }}</td>
+                <td>{{ herramienta.modelo }}</td>
+                <td>{{ herramienta.tipo }}</td>
+                <td>{{ herramienta.get_estado_display }}</td>
+                <td>
+                    <a href="{% url 'herramienta_update' herramienta.pk %}" class="btn btn-sm btn-warning">Editar</a>
+                    <a href="{% url 'herramienta_delete' herramienta.pk %}" class="btn btn-sm btn-danger" onclick="return confirm('¿Eliminar?')">Eliminar</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="6" class="text-center">No hay herramientas</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 {% endblock %}

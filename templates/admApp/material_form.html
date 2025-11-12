@@ -1,9 +1,49 @@
 {% extends 'admApp/base.html' %}
+
 {% block content %}
-<h2>{{ form.instance.id_material|yesno:"Editar material,Nuevo material" }}</h2>
-<form method="post">{% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit" class="btn btn-primary">Guardar</button>
-  <a href="{% url 'materiales_list' %}" class="btn btn-secondary">Volver</a>
-</form>
+<div class="container mt-4">
+    <h2>{% if form.instance.pk %}Editar{% else %}Nuevo{% endif %} Material</h2>
+    
+    <form method="post">
+        {% csrf_token %}
+        
+        <div class="mb-3">
+            <label class="form-label">Nombre</label>
+            {{ form.nombre }}
+        </div>
+        
+        <div class="mb-3">
+            <label class="form-label">Descripción</label>
+            {{ form.descripcion }}
+        </div>
+        
+        <div class="mb-3">
+            <label class="form-label">Unidad de Medida</label>
+            {{ form.unidad_medida }}
+        </div>
+        
+        <div class="mb-3">
+            <label class="form-label">Precio Unitario</label>
+            {{ form.precio_unitario }}
+        </div>
+        
+        <div class="mb-3">
+            <label class="form-label">Stock Mínimo</label>
+            {{ form.stock_minimo }}
+        </div>
+        
+        <div class="mb-3">
+            <label class="form-label">Proveedor</label>
+            {{ form.proveedor }}
+        </div>
+        
+        <div class="mb-3">
+            <label class="form-label">Activo</label>
+            {{ form.activo }}
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        <a href="{% url 'materiales_list' %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
 {% endblock %}

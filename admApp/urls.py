@@ -37,4 +37,18 @@ urlpatterns = [
     path('obreros/editar/<int:pk>/', views.obrero_update, name='obrero_update'),
     path('obreros/eliminar/<int:pk>/', views.obrero_delete, name='obrero_delete'),
 
+    # Bodegas
+    path('bodegas/', views.bodegas_list, name='bodegas_list'),
+    path('bodegas/nueva/', views.bodega_create, name='bodega_create'),
+    path('bodegas/<int:pk>/', views.bodega_detail, name='bodega_detail'),
+
+    # Inventario
+    path('inventario/', views.inventario_list, name='inventario_list'),
+
+    # Préstamos
+    path('prestamos/', views.prestamos_list, name='prestamos_list'),
+    path('prestamos/nuevo/', views.prestamo_create, name='prestamo_create'),
+    path('prestamos/<int:pk>/devolver/', views.prestamo_devolver, name='prestamo_devolver'),
+
+
 ]

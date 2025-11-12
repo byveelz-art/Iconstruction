@@ -1,10 +1,24 @@
 {% extends 'admApp/base.html' %}
-{% block content %}
-<h2>{{ form.instance.id_obrero|yesno:"Editar obrero,Nuevo obrero" }}</h2>
 
-<form method="post">{% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit" class="btn btn-primary">Guardar</button>
-  <a href="{% url 'obreros_list' %}" class="btn btn-secondary">Volver</a>
-</form>
+{% block content %}
+<div class="container mt-4">
+    <h2>{% if form.instance.pk %}Editar{% else %}Nuevo{% endif %} Obrero</h2>
+    
+    <form method="post">
+        {% csrf_token %}
+        
+        <div class="mb-3">
+            <label class="form-label">Usuario</label>
+            {{ form.usuario }}
+        </div>
+        
+        <div class="mb-3">
+            <label class="form-label">Especialidad</label>
+            {{ form.especialidad }}
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        <a href="{% url 'obreros_list' %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
 {% endblock %}

@@ -1,0 +1,49 @@
+{% extends 'admApp/base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Préstamos de Herramientas</h2>
+    <a href="{% url 'prestamo_create' %}" class="btn btn-primary mb-3">Nuevo Préstamo</a>
+    
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Herramienta</th>
+                <th>Obrero</th>
+                <th>Obra</th>
+                <th>Fecha Préstamo</th>
+                <th>Fecha Esperada</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for prestamo in prestamos %}
+            <tr>
+                <td>{{ prestamo.herramienta.nombre }}</td>
+                <td>{{ prestamo.obrero.usuario.get_full_name }}</td>
+                <td>{{ prestamo.obra.nombre }}</td>
+                <td>{{ prestamo.fecha_prestamo|date:"d/m/Y" }}</td>
+                <td>{{ prestamo.fecha_devolucion_esperada|date:"d/m/Y" }}</td>
+                <td>
+                    {% if prestamo.estado == 'ACTIVO' %}
+                        <span class="badge bg-warning">Activo</span>
+                    {% else %}
+                        <span class="badge bg-success">Devuelto</span>
+                    {% endif %}
+                </td>
+                <td>
+                    {% if prestamo.estado == 'ACTIVO' %}
+                        <a href="{% url 'prestamo_devolver' prestamo.pk %}" class="btn btn-sm btn-success">Devolver</a>
+                    {% endif %}
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="7" class="text-center">Sin préstamos</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

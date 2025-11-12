@@ -1,0 +1,11 @@
+class PrestamoForm(forms.ModelForm):
+    class Meta:
+        model = Prestamo
+        fields = ['herramienta', 'obrero', 'obra', 'fecha_devolucion_esperada', 'observaciones']
+        widgets = {
+            'herramienta': forms.Select(attrs={'class': 'form-control'}),
+            'obrero': forms.Select(attrs={'class': 'form-control'}),
+            'obra': forms.Select(attrs={'class': 'form-control'}),
+            'fecha_devolucion_esperada': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
+            'observaciones': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
+        }

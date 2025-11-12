@@ -1,0 +1,20 @@
+{% extends 'admApp/base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Devolver Herramienta</h2>
+    
+    <div class="alert alert-info">
+        <strong>Herramienta:</strong> {{ prestamo.herramienta.nombre }}<br>
+        <strong>Obrero:</strong> {{ prestamo.obrero.usuario.get_full_name }}<br>
+        <strong>Fecha Préstamo:</strong> {{ prestamo.fecha_prestamo|date:"d/m/Y" }}
+    </div>
+    
+    <form method="post">
+        {% csrf_token %}
+        <p>¿Confirmar devolución de esta herramienta?</p>
+        <button type="submit" class="btn btn-success">Confirmar Devolución</button>
+        <a href="{% url 'prestamos_list' %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+{% endblock %}

@@ -1,33 +1,29 @@
-from django.contrib.auth import logout
-from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from django.utils import timezone
-from django.db import connection
+from .forms import LoginForm
 
 def login_view(request):
     if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
-
-        user = authenticate(request, username=username, password=password)
-
-        if user is not None:
-            login(request, user)
-
-            # Redirección según el rol
-            if user.is_superuser:
-                return redirect('/administracion/dashboard')
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            
+            user = authenticate(request, username=username, password=password)
+            
+            if user is not None:
+                login(request, user)
+                messages.success(request, f'Bienvenido {user.get_full_name() or user.username}')
+                return redirect('dashboard')
             else:
-                return redirect('#') # Redirigir a una página para usuarios normales
+                messages.error(request, 'Usuario o contraseña incorrectos')
+    else:
+        form = LoginForm()
+    
+    return render(request, 'sesionApp/login.html', {'form': form})
 
-        else:
-            messages.error(request, 'Credenciales incorrectas.')
-
-    return render(request, 'sesionApp/login.html')
-
-@login_required
 def logout_view(request):
     logout(request)
+    messages.info(request, 'Sesión cerrada correctamente')
     return redirect('login')

@@ -1,9 +1,64 @@
 {% extends 'admApp/base.html' %}
+
 {% block content %}
-<h2>{{ form.instance.id_obra|yesno:"Editar obra,Nueva obra" }}</h2>
-<form method="post">{% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit" class="btn btn-primary">Guardar</button>
-  <a href="{% url 'obras_list' %}" class="btn btn-secondary">Volver</a>
-</form>
+<div class="container mt-4">
+    <h2>{% if form.instance.pk %}Editar{% else %}Nueva{% endif %} Obra</h2>
+    
+    <form method="post">
+        {% csrf_token %}
+        
+        <div class="mb-3">
+            <label class="form-label">Nombre</label>
+            {{ form.nombre }}
+        </div>
+        
+        <div class="mb-3">
+            <label class="form-label">Dirección</label>
+            {{ form.direccion }}
+        </div>
+        
+        <div class="mb-3">
+            <label class="form-label">Ciudad</label>
+            {{ form.ciudad }}
+        </div>
+        
+        <div class="mb-3">
+            <label class="form-label">Región</label>
+            {{ form.region }}
+        </div>
+        
+        <div class="mb-3">
+            <label class="form-label">Supervisor</label>
+            {{ form.supervisor }}
+        </div>
+        
+        <div class="mb-3">
+            <label class="form-label">Fecha Inicio</label>
+            {{ form.fecha_inicio }}
+        </div>
+        
+        <div class="mb-3">
+            <label class="form-label">Fecha Fin Estimada</label>
+            {{ form.fecha_fin_estimada }}
+        </div>
+        
+        <div class="mb-3">
+            <label class="form-label">Estado</label>
+            {{ form.estado }}
+        </div>
+        
+        <div class="mb-3">
+            <label class="form-label">Presupuesto Estimado</label>
+            {{ form.presupuesto_estimado }}
+        </div>
+        
+        <div class="mb-3">
+            <label class="form-label">Descripción</label>
+            {{ form.descripcion }}
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        <a href="{% url 'obras_list' %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
 {% endblock %}
