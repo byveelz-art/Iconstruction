@@ -113,12 +113,10 @@ WSGI_APPLICATION = 'prjIContruction.wsgi.application'
 # Conexión a MySQL para almacenar datos del sistema
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',  # Motor de base de datos
-        'NAME': 'iconstruction',               # Nombre de la base de datos
-        'USER': 'root',                        # Usuario de MySQL
-        'PASSWORD': 'admin',                   # Contraseña (cambiar en producción)
-        'HOST': 'localhost',                   # Servidor de base de datos
-        'PORT': '3306',                        # Puerto de MySQL
+        'ENGINE': config('ENGINE'),  # Motor de base de datos
+        'NAME': config('DB_NAME'),               # Nombre de la base de datos
+        'USER': config('DB_USER'),                        # Usuario de MySQL
+        'PASSWORD': config('DB_PASSWORD'),                   # Contraseña (cambiar en producción)
     }
 }
 
